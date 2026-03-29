@@ -40,7 +40,7 @@
         <a-video
           src="#my-video"
           position="0 0 0.001"
-          width="1" height="0.552"
+          width="1" height="1"
         ></a-video>
       </a-entity>
     </a-scene>
@@ -54,7 +54,6 @@
         overlay.style.display = 'none';
       });
 
-      // Also re-trigger play when the print is detected
       const scene = document.querySelector('a-scene');
       scene.addEventListener('targetFound', () => {
         video.play().catch(e => console.warn('Video play failed:', e));
