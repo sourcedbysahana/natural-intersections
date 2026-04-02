@@ -33,30 +33,75 @@
       device-orientation-permission-ui="enabled: false"
     >
       <a-assets>
-        <video id="my-video" src="./botanical.mp4" loop muted playsinline></video>
+        <!-- aloe1: 4800x6000 -->
+        <video id="video-0" src="./aloe1.mp4" loop muted playsinline></video>
+        <!-- FLOWER2: 4096x4096 -->
+        <video id="video-1" src="./flower2.mp4" loop muted playsinline></video>
+        <!-- separation3: 6000x6000 -->
+        <video id="video-2" src="./separation3.mp4" loop muted playsinline></video>
+        <!-- TERRAIN4: 4800x6000 -->
+        <video id="video-3" src="./terrain4.mp4" loop muted playsinline></video>
+        <!-- TRAILS5: 6000x6000 -->
+        <video id="video-4" src="./trails5.mp4" loop muted playsinline></video>
+        <!-- DIGFLOWER6: 6000x6000 -->
+        <video id="video-5" src="./digflower6.mp4" loop muted playsinline></video>
       </a-assets>
+
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+      <!-- aloe1 (4800x6000 → height = 6000/4800 = 1.25) -->
       <a-entity mindar-image-target="targetIndex: 0">
-        <a-video
-          src="#my-video"
-          position="0 0 0.001"
-          width="1" height="1"
-        ></a-video>
+        <a-video src="#video-0" position="0 0 0.001" width="1" height="1.25"></a-video>
       </a-entity>
+
+      <!-- FLOWER2 (4096x4096 → square) -->
+      <a-entity mindar-image-target="targetIndex: 1">
+        <a-video src="#video-1" position="0 0 0.001" width="1" height="1"></a-video>
+      </a-entity>
+
+      <!-- separation3 (6000x6000 → square) -->
+      <a-entity mindar-image-target="targetIndex: 2">
+        <a-video src="#video-2" position="0 0 0.001" width="1" height="1"></a-video>
+      </a-entity>
+
+      <!-- TERRAIN4 (4800x6000 → height = 6000/4800 = 1.25) -->
+      <a-entity mindar-image-target="targetIndex: 3">
+        <a-video src="#video-3" position="0 0 0.001" width="1" height="1.25"></a-video>
+      </a-entity>
+
+      <!-- TRAILS5 (6000x6000 → square) -->
+      <a-entity mindar-image-target="targetIndex: 4">
+        <a-video src="#video-4" position="0 0 0.001" width="1" height="1"></a-video>
+      </a-entity>
+
+      <!-- DIGFLOWER6 (6000x6000 → square) -->
+      <a-entity mindar-image-target="targetIndex: 5">
+        <a-video src="#video-5" position="0 0 0.001" width="1" height="1"></a-video>
+      </a-entity>
+
     </a-scene>
 
     <script>
       const overlay = document.getElementById('tap-to-start');
-      const video = document.getElementById('my-video');
+      const videos = [
+        document.getElementById('video-0'),
+        document.getElementById('video-1'),
+        document.getElementById('video-2'),
+        document.getElementById('video-3'),
+        document.getElementById('video-4'),
+        document.getElementById('video-5'),
+      ];
 
+      // On tap, play all videos so they're ready when a target is found
       overlay.addEventListener('click', () => {
-        video.play().catch(e => console.warn('Video play failed:', e));
+        videos.forEach(v => v.play().catch(e => console.warn('Video play failed:', e)));
         overlay.style.display = 'none';
       });
 
+      // Re-trigger all on any target found
       const scene = document.querySelector('a-scene');
       scene.addEventListener('targetFound', () => {
-        video.play().catch(e => console.warn('Video play failed:', e));
+        videos.forEach(v => v.play().catch(e => console.warn('Video play failed:', e)));
       });
     </script>
 
